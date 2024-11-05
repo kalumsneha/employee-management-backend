@@ -1,4 +1,4 @@
-package com.ontariotechu.ses.employee_management_backend;
+package com.ontariotechu.ses.ems;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

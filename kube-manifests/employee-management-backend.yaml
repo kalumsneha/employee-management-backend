@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: employee-management
+  name: employee-management
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employee-management
+  template:
+    metadata:
+      labels:
+        app: employee-management
+    spec:
+      containers:
+        - name: employee-management
+          image: wmsfernando/employee-management-backend:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: employee-management-backend
+            - name: SERVER_SERVLET_CONTEXT-PATH
+              value: /employee-management
+            - name: SERVER_PORT
+              value: '8080'
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://ems-db-postgres.c3mm0kmcmilo.us-east-2.rds.amazonaws.com:5432/ems_db_postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: Password12
+            - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+              value: org.hibernate.dialect.PostgreSQLDialect
+            - name: SPRING_JPA_HIBERNATE_DDL-AUTO
+              value: update
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-management
+spec:
+  selector:
+    app: employee-management
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+
+

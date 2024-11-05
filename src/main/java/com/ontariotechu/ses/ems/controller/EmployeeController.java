@@ -27,13 +27,13 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         log.info("Fetching All Employees");
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable int id){
+    public Optional<Employee> getEmployeeById(@PathVariable int id) {
         log.info("Fetching employee by id: {}", id);
         return employeeService.getEmployeeById(id);
     }
@@ -41,11 +41,12 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee) throws JsonProcessingException {
         log.info("Updating Employee: {}", new ObjectMapper().writeValueAsString(employee));
-        return employeeService.updateEmployee(id,employee);
+        return employeeService.updateEmployee(id, employee);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable int id){
+    public void deleteEmployee(@PathVariable int id) {
         log.info("Deleting Employee with id: {}", id);
         employeeService.deleteEmployee(id);
     }
+}
